@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +9,15 @@ public class PlayerMovement : MonoBehaviour
     public GameObject playerCam;
     public LayerMask floorMask;
 
+    bool canMove = true;
+    bool isMoving;
+
+    float CheckCooldown = 0.4f;
+    float currentTime;
+
+    Vector3 pastLocation = Vector3.zero;
+
+    public List<GameObject> openUis = new List<GameObject>();
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -14,9 +25,31 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (canMove == true)
         {
-            MoveToLocation();
+            if (Input.GetMouseButtonDown(0))
+            {
+                agent.isStopped = false;
+                currentTime = 0;
+                isMoving = true;
+                MoveToLocation();
+            }
+        }
+        if (isMoving == true)
+        {
+            currentTime += Time.deltaTime;
+            if (CheckCooldown < currentTime)
+            {
+                currentTime = 0;
+                if (Vector3.Distance(transform.position, pastLocation) <= 0.1f)
+                {
+                    agent.isStopped = true;
+                }
+                else
+                {
+                    pastLocation = transform.position;
+                }
+            }
         }
     }
 
@@ -27,6 +60,27 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider.CompareTag("Floor"))
         {
             agent.destination = hit.point;
+        }
+        else
+        {
+            Debug.Log(hit.collider.name);
+        }
+    }
+    void FixedUpdate()
+    {
+        if (openUis.Count > 0)
+        {
+            for (int i = 0; i < openUis.Count; i++)
+            {
+                if (openUis[i].activeInHierarchy == true)
+                {
+                    canMove = false;
+                }
+                else
+                {
+                    canMove = true;
+                }
+            }
         }
     }
 }

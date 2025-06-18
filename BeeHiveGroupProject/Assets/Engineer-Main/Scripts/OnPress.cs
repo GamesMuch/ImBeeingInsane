@@ -6,6 +6,7 @@ public class OnPress : MonoBehaviour
     public InteractScript parentInteraction;
 
     RaycastHit hit;
+    Ray mouseRay;
     Mouse playerMouse;
 
     void Update()
@@ -14,10 +15,11 @@ public class OnPress : MonoBehaviour
         {
             MousePress();
         }
+        
     }
     void MousePress()
     {
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out hit))
         {
             print(hit.collider.name);
