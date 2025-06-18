@@ -19,7 +19,6 @@ public class OnPress : MonoBehaviour
     }
     void MousePress()
     {
-        
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out hit))
         {
