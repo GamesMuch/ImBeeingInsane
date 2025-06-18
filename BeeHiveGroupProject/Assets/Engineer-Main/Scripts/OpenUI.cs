@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OpenUI : MonoBehaviour
 {
+
+
     public List<GameObject> UiObjects = new List<GameObject>();
     List<string> UiNames = new List<string>();
     
