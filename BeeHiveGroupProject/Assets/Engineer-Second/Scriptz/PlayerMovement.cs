@@ -1,11 +1,13 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
     NavMeshAgent agent;
-    public GameObject playerCam;
-    public LayerMask floorMask;
+    public Vector3 roomLocation;
 
     void Start()
     {
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
         {
             MoveToLocation();
         }
+
     }
 
     void MoveToLocation()
@@ -29,4 +32,13 @@ public class PlayerMovement : MonoBehaviour
             agent.destination = hit.point;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Room Collider"))
+        {
+            roomLocation = other.transform.position;
+        }
+    }
+
 }
