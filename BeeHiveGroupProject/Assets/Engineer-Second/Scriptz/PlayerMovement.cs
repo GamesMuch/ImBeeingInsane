@@ -6,10 +6,9 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    NavMeshAgent agent;
-    public GameObject playerCam;
+    public NavMeshAgent agent;
 
-    bool canMove = true;
+    public bool canMove = true;
     bool isMoving;
 
     float CheckCooldown = 0.4f;
@@ -65,21 +64,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 agent.destination = hit.point;
             }
-        }
-        if (isMoving == true)
-        {
-            currentTime += Time.deltaTime;
-            if (CheckCooldown < currentTime)
-            {
-                currentTime = 0;
-                if (Vector3.Distance(transform.position, pastLocation) <= 0.1f)
-                {
-                    agent.isStopped = true;
-                }
-                else
-                {
-                    pastLocation = transform.position;
-                }
             }
         }
     }
