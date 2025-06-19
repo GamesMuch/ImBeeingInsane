@@ -1,13 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractScript : MonoBehaviour
 {
-    public enum plant { none,FlowerPuzzle,FlowerLock};
-    public plant ChoosePlant = plant.none;
 
-    public OpenUI UIManager;
-
+    
+    public UnityEvent OnClick;
     public GameObject pressButton;
+    public PlayerMovement Player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void OnTriggerEnter(Collider other)
@@ -27,7 +27,8 @@ public class InteractScript : MonoBehaviour
 
     public void Interaction()
     {
-        UIManager.OpenUi(ChoosePlant.ToString());
-        Debug.Log(ChoosePlant);
+        Player.canMove = false;
+        OnClick.Invoke();
+        //Debug.Log(ChooseUI);
     }
 }

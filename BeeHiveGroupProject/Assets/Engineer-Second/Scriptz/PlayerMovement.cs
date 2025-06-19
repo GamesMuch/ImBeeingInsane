@@ -5,11 +5,9 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    NavMeshAgent agent;
-    public GameObject playerCam;
-    public LayerMask floorMask;
+    public NavMeshAgent agent;
 
-    bool canMove = true;
+    public bool canMove = true;
     bool isMoving;
 
     float CheckCooldown = 0.4f;
@@ -63,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
         }
     }
     void FixedUpdate()

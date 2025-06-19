@@ -22,7 +22,7 @@ public class OnPress : MonoBehaviour
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out hit))
         {
-            print(hit.collider.name);
+            
             if (hit.collider.name == gameObject.name)
             {
                 parentInteraction.Interaction();
