@@ -11,12 +11,12 @@ public class InfoStorage : MonoBehaviour
     }
     public PlayerAvatar playerAvatar;
 
-    public GameObject item;
+    public GameObject blinkItem;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        item.SetActive(true);
-        item.SetActive(false);
+        blinkItem.SetActive(true);
+        blinkItem.SetActive(false);
     }
 
     // Update is called once per frame

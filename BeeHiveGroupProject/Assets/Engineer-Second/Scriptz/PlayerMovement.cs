@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     public NavMeshAgent agent;
-
+    public Vector3 roomLocation;
     public bool canMove = true;
     bool isMoving;
 
@@ -24,15 +24,26 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            agent.isStopped = false;
+            currentTime = 0;
+            isMoving = true;
+            MoveToLocation();
+        }
+
+    }
+
+    void MoveToLocation()
+    {
+        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(raycast, out RaycastHit hit, 80);
+
         if (canMove == true)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (hit.collider.CompareTag("Floor"))
             {
-                agent.isStopped = false;
-                currentTime = 0;
-                isMoving = true;
-                MoveToLocation();
-                Debug.Log("start moving");
+                agent.destination = hit.point;
             }
         }
         if (isMoving == true)
@@ -49,21 +60,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     pastLocation = transform.position;
                 }
-            }
-        }
-    }
-
-    void MoveToLocation()
-    {
-        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(raycast, out RaycastHit hit, 80);
-
-        if (canMove == true)
-        {
-            if (hit.collider.CompareTag("Floor"))
-            {
-                agent.destination = hit.point;
-            }
             }
         }
     }
