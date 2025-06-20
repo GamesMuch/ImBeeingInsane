@@ -64,14 +64,16 @@ public class DialogueBox : MonoBehaviour
 
     public void OnTalk()
     {
+        inDialogue = true;
+        Player.agent.isStopped = true;
         choicesList.Clear();
         line = 0;
-        inDialogue = true;
 
-        D.Clear();
         partsOfLines.Clear();
+        D.Clear();
+        
 
-        Player.agent.isStopped = true;
+        
         InitializeDialogue();
 
         TryTalk();
@@ -88,9 +90,9 @@ public class DialogueBox : MonoBehaviour
 
             if (Tapped && NextLine && NoOption)
             {
-
-                D.Clear();
                 partsOfLines.Clear();
+                D.Clear();
+                
 
                 InitializeDialogue();
 
@@ -147,7 +149,7 @@ public class DialogueBox : MonoBehaviour
                 SetUpOptions(option1, option2);
             }
             
-            NextLine = true;
+            
             
         }
         
@@ -255,18 +257,21 @@ public class DialogueBox : MonoBehaviour
 
             yield return new WaitForSeconds(1f / (talkSpeed * partsOfLines.Count));
         }
+        
     }
     IEnumerator TalkAvatar(int nr)
     {
         if (nr == 0) {
             for (int i = 0; i < talkSpeed; i++)
             {
-                //DialogueImage.sprite = Info.playerAvatar.MouthOpen;
-                DialogueImage.color = new Color(1, 0, 1);
+                DialogueImage.sprite = Info.playerAvatar.MouthOpen;
+                //DialogueImage.color = new Color(1, 0, 1);
 
                 yield return new WaitForSeconds(1f / (talkSpeed * 2));
-                //DialogueImage.sprite = Info.playerAvatar.MouthClose;
-                DialogueImage.color = new Color(0, 1, 0);
+
+                
+                DialogueImage.sprite = Info.playerAvatar.MouthClose;
+                //DialogueImage.color = new Color(0, 1, 0);
                 yield return new WaitForSeconds(1f / (talkSpeed * 2));
             }
             
@@ -276,16 +281,17 @@ public class DialogueBox : MonoBehaviour
         {
             for (int i = 0; i < talkSpeed; i++)
             {
-                //DialogueImage.sprite = NPCAvatar.MouthOpen;
-                DialogueImage.color = new Color(1, 0, 1);
+                DialogueImage.sprite = NPCAvatar.MouthOpen;
+                //DialogueImage.color = new Color(1, 0, 1);
                 yield return new WaitForSeconds(1f / (talkSpeed * 2));
-                //DialogueImage.sprite = NPCAvatar.MouthClosed;
-                DialogueImage.color = new Color(0, 0, 1);
+                DialogueImage.sprite = NPCAvatar.MouthClosed;
+                //DialogueImage.color = new Color(0, 0, 1);
                 yield return new WaitForSeconds(1f / (talkSpeed * 2));
             }
         }
-        
-        
+        NextLine = true;
+
+
     }
     #endregion
 
@@ -343,17 +349,37 @@ public class DialogueBox : MonoBehaviour
     #endregion
     void TestDialogue()
     {
-        N("Hey");
+        N("Hello there");
 
         P("Who are you?");
 
-        N("I am the guide");
+        N("Im just a test script of this amazing dialogue system");
 
-        P("What do you guide?");
+        Q("Thats so cool!");
+        Q("Wow!");
 
-        N("I guide people to the promised land");
+        QuestionNr = 12;
 
-        P("No thanks, i dont like America");
+        if (ifX(QuestionNr) == 1)
+        {
+            N("Oh thank you thank you, i feel honored");
+
+            P("No problem, take care!");
+
+            N("You too! Bye!");
+
+            End();
+        }
+        if (ifX(QuestionNr) == 2)
+        {
+            N("Dont worry bout it sport, thats for later");
+
+            P("Alright thanks");
+
+            N("Take care now!");
+
+            End();
+        }
 
         End();
     }

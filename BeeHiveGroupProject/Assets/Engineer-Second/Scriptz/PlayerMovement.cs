@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     public NavMeshAgent agent;
-
+    public Vector3 roomLocation;
     public bool canMove = true;
     bool isMoving;
 
@@ -23,14 +24,26 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            agent.isStopped = false;
+            currentTime = 0;
+            isMoving = true;
+            MoveToLocation();
+        }
+
+    }
+
+    void MoveToLocation()
+    {
+        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(raycast, out RaycastHit hit, 80);
+
         if (canMove == true)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (hit.collider.CompareTag("Floor"))
             {
-                agent.isStopped = false;
-                currentTime = 0;
-                isMoving = true;
-                MoveToLocation();
+                agent.destination = hit.point;
             }
         }
         if (isMoving == true)
@@ -51,34 +64,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void MoveToLocation()
-    {
-        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(raycast, out RaycastHit hit);
-        if (hit.collider.CompareTag("Floor"))
-        {
-            agent.destination = hit.point;
-        }
-        else
-        {
-            //Debug.Log(hit.collider.name);
-        }
-    }
-    void FixedUpdate()
-    {
-        if (openUis.Count > 0)
-        {
-            for (int i = 0; i < openUis.Count; i++)
-            {
-                if (openUis[i].activeInHierarchy == true)
-                {
-                    canMove = false;
-                }
-                else
-                {
-                    canMove = true;
-                }
-            }
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Room Collider"))
+    //    {
+    //        roomLocation = other.transform.position;
+    //    }
+    //}
+
 }
