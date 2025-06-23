@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     NavMeshAgent agent;
     public GameObject playerCam;
-    public LayerMask floorMask;
 
     bool canMove = true;
     bool isMoving;
@@ -33,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
                 currentTime = 0;
                 isMoving = true;
                 MoveToLocation();
+                Debug.Log("start moving");
             }
         }
         if (isMoving == true)
