@@ -6,9 +6,10 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public NavMeshAgent agent;
-    public Vector3 roomLocation;
-    public bool canMove = true;
+    NavMeshAgent agent;
+    public GameObject playerCam;
+
+    bool canMove = true;
     bool isMoving;
 
     float CheckCooldown = 0.4f;
@@ -24,14 +25,33 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (canMove == true)
         {
-            agent.isStopped = false;
-            currentTime = 0;
-            isMoving = true;
-            MoveToLocation();
+            if (Input.GetMouseButtonDown(0))
+            {
+                agent.isStopped = false;
+                currentTime = 0;
+                isMoving = true;
+                MoveToLocation();
+                Debug.Log("start moving");
+            }
         }
-
+        if (isMoving == true)
+        {
+            currentTime += Time.deltaTime;
+            if (CheckCooldown < currentTime)
+            {
+                currentTime = 0;
+                if (Vector3.Distance(transform.position, pastLocation) <= 0.1f)
+                {
+                    agent.isStopped = true;
+                }
+                else
+                {
+                    pastLocation = transform.position;
+                }
+            }
+        }
     }
 
     void MoveToLocation()
