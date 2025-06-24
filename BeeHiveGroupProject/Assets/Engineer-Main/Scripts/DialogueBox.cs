@@ -17,6 +17,14 @@ public class DialogueBox : MonoBehaviour
 
     public talkAvatar NPCAvatar;
 
+    [System.Serializable]
+    public struct talkAvatar2
+    {
+        public Sprite MouthOpen2;
+        public Sprite MouthClosed2;
+    }
+
+    public talkAvatar NPCAvatar2;
 
     [Header("Important Objects")]
     public InfoStorage Info;
@@ -54,7 +62,7 @@ public class DialogueBox : MonoBehaviour
 
     //Some variables
     int line;           
-    int QuestionNr;      
+    int AnswerID;      
     int CurrentQuestion; 
 
     //Just timechecker
@@ -92,6 +100,7 @@ public class DialogueBox : MonoBehaviour
             {
                 partsOfLines.Clear();
                 D.Clear();
+                StopCoroutine("TalkAvatar");
                 
 
                 InitializeDialogue();
@@ -119,7 +128,7 @@ public class DialogueBox : MonoBehaviour
     {
         partsOfLines.Clear();
         TextBox.text = "";
-        if (nr == 0 || nr == 1)
+        if (nr == 0 || nr == 1 || nr == 2)
         {
             FirstOptionBox.SetActive(false);
             SecondOptionBox.SetActive(false);
@@ -130,7 +139,7 @@ public class DialogueBox : MonoBehaviour
                 partsOfLines.Add(sentence.Substring(i, size));
                 
             }
-            if (line + 1 < D.Count && D[line + 1].Item1 == 2)
+            if (line + 1 < D.Count && D[line + 1].Item1 == 3)
             {
                 TextMeshProUGUI text1 = FirstOptionBox.GetComponentInChildren<TextMeshProUGUI>();
                 TextMeshProUGUI text2 = SecondOptionBox.GetComponentInChildren<TextMeshProUGUI>();
@@ -153,7 +162,7 @@ public class DialogueBox : MonoBehaviour
             
         }
         
-        else if (nr == 3)
+        else if (nr == 4)
         {
             DialogueEnd();
             Debug.Log("IT GOTTA STOP");
@@ -190,7 +199,7 @@ public class DialogueBox : MonoBehaviour
     #region Choosing
     public void FirstOption()
     {
-        choicesList[QuestionNr]= 1;
+        choicesList[AnswerID]= 1;
         NoOption = true;
         FirstOptionBox.SetActive(false);
         SecondOptionBox.SetActive(false);
@@ -201,7 +210,7 @@ public class DialogueBox : MonoBehaviour
     }
     public void SecondOption()
     {
-        choicesList[QuestionNr]= 2;
+        choicesList[AnswerID]= 2;
         NoOption = true;
         FirstOptionBox.SetActive(false);
         SecondOptionBox.SetActive(false);
@@ -231,8 +240,9 @@ public class DialogueBox : MonoBehaviour
     #region TalkCode
     void P(string text) => D.Add((0, text));
     void N(string text) => D.Add((1, text));
+    void S(string text) => D.Add((2, text));
 
-    void Q(string text) => D.Add((2, text));
+    void A(string text) => D.Add((3, text));
 
     int ifX(int nr)
     {
@@ -246,13 +256,18 @@ public class DialogueBox : MonoBehaviour
         }
     }
 
-    void End() => D.Add((3,"End"));
+    void End() => D.Add((4,"End"));
     #endregion
 
     #region Flavor
+    //StopCoroutine("AddToText");
     IEnumerator AddToText(int nr)
     {
         foreach (string s in partsOfLines) {
+
+            if (string.IsNullOrEmpty(s)) yield break;
+
+
             TextBox.text += s;
 
             yield return new WaitForSeconds(1f / (talkSpeed * partsOfLines.Count));
@@ -261,6 +276,7 @@ public class DialogueBox : MonoBehaviour
     }
     IEnumerator TalkAvatar(int nr)
     {
+        
         if (nr == 0) {
             for (int i = 0; i < talkSpeed; i++)
             {
@@ -289,6 +305,18 @@ public class DialogueBox : MonoBehaviour
                 yield return new WaitForSeconds(1f / (talkSpeed * 2));
             }
         }
+        if (nr == 2)
+        {
+            for (int i = 0; i < talkSpeed; i++)
+            {
+                DialogueImage.sprite = NPCAvatar2.MouthOpen;
+                //DialogueImage.color = new Color(1, 0, 1);
+                yield return new WaitForSeconds(1f / (talkSpeed * 2));
+                DialogueImage.sprite = NPCAvatar2.MouthClosed;
+                //DialogueImage.color = new Color(0, 0, 1);
+                yield return new WaitForSeconds(1f / (talkSpeed * 2));
+            }
+        }
         NextLine = true;
 
 
@@ -300,7 +328,7 @@ public class DialogueBox : MonoBehaviour
         {
             case NPC.none:
 
-                Debug.LogError("There is no script for this yet");
+                Debug.LogError("There is no script for this");
 
                 break;
 
@@ -355,12 +383,12 @@ public class DialogueBox : MonoBehaviour
 
         N("Im just a test script of this amazing dialogue system");
 
-        Q("Thats so cool!");
-        Q("Wow!");
+        A("Thats so cool!");
+        A("Wow!");
 
-        QuestionNr = 12;
+        AnswerID = 12;
 
-        if (ifX(QuestionNr) == 1)
+        if (ifX(AnswerID) == 1)
         {
             N("Oh thank you thank you, i feel honored");
 
@@ -370,7 +398,7 @@ public class DialogueBox : MonoBehaviour
 
             End();
         }
-        if (ifX(QuestionNr) == 2)
+        if (ifX(AnswerID) == 2)
         {
             N("Dont worry bout it sport, thats for later");
 
@@ -391,28 +419,28 @@ public class DialogueBox : MonoBehaviour
 
         N("Have you seen John?");
 
-        Q("Yes i have");
-        Q("No, i have not");
+        A("Yes i have");
+        A("No, i have not");
 
-        QuestionNr = 1;
-        if (ifX(QuestionNr) == 1)
+        AnswerID = 1;
+        if (ifX(AnswerID) == 1)
         {
             N("Thats amazing");
             N("Thats amazing2");
-            Q("Yeah");
-            Q("No fuck you!");
-            QuestionNr = 2;
-            if (ifX(QuestionNr) == 1)
+            A("Yeah");
+            A("No fuck you!");
+            AnswerID = 2;
+            if (ifX(AnswerID) == 1)
             {
                 N("Fuck you");
             }
-            if (ifX(QuestionNr) == 2)
+            if (ifX(AnswerID) == 2)
             {
                 N("Yaaay");
             }
             N("Thats amazing3");
         }
-        else if (ifX(QuestionNr) == 2)
+        else if (ifX(AnswerID) == 2)
         {
             N("What a bummer");
             N("What a bummer2");
