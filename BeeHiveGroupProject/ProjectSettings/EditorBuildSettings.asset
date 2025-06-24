@@ -8,9 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Engineer Main/DialogueChat.unity
     guid: 91b2a61f52445f947ba2eb44ed9e2f6b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Engineer Main/Engineer-Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Engineer Main/Stair1.unity
+    guid: 88b2d19ced4914542a86c0af9e440e95
+  - enabled: 1
+    path: Assets/Scenes/Engineer Main/Stair2.unity
+    guid: 1cd8a2dca51ef2542b230cba40eafb32
+  - enabled: 1
+    path: Assets/Scenes/Engineer Main/Stair3.unity
+    guid: 6f40f93aa6f4faa459a312ed917b7662
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
