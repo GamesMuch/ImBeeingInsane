@@ -10,6 +10,7 @@ TagManager:
   - Room Collider
   - Allies
   - Enemies
+  - JustBlinks
   layers:
   - Default
   - TransparentFX
