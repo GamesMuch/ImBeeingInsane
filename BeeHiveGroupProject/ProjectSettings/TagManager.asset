@@ -11,6 +11,7 @@ TagManager:
   - Allies
   - Enemies
   - JustBlinks
+  - NPC
   layers:
   - Default
   - TransparentFX
