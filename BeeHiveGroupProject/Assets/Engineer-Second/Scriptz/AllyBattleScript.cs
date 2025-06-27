@@ -1,9 +1,12 @@
+/*
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+
 
 public class AllyBattleScript : MonoBehaviour
 {
-    public Slider hpBar;
+    public UnityEngine.UI.Slider hpBar;
     public float maxHp;
     public float currentHp;
     public float damageAmount = 3;
@@ -11,7 +14,14 @@ public class AllyBattleScript : MonoBehaviour
     public float damageTaken = 0;
     private float damageModifier = 1;
 
-    public BattleUIScript battleUIScript;
+
+
+    public bool IsBlocked;
+
+
+    public UnityEngine.UI.Button button;
+
+    //public BattleUIScript battleUIScript;
     public EnemyBattleScript enemyBattleScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,6 +30,13 @@ public class AllyBattleScript : MonoBehaviour
         hpBar.maxValue = maxHp;
         currentHp = maxHp;
         hpBar.value = currentHp;
+
+        hpBar.interactable = false;
+    }
+
+    public void GetsBlocked()
+    {
+        IsBlocked = true;
     }
 
 
@@ -39,7 +56,11 @@ public class AllyBattleScript : MonoBehaviour
             }
             CheckHP();
         }
-        
+
+    }
+    public float GetHP()
+    {
+        return maxHp;
     }
 
     public void CheckForDefense()
@@ -70,3 +91,4 @@ public class AllyBattleScript : MonoBehaviour
     }
 
 }
+*/

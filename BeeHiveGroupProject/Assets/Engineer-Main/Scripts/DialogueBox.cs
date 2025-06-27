@@ -306,8 +306,6 @@ public class DialogueBox : MonoBehaviour
                 //DialogueImage.color = new Color(0, 1, 0);
                 yield return new WaitForSeconds(1f / (talkSpeed * 2));
             }
-            
-            
         }
         if (nr == 1)
         {

@@ -1,25 +1,37 @@
+/*
+
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class BattleUIScript : MonoBehaviour
 {
-    public GameObject choosePlayer;
-    public GameObject choosePlayer1;
-    public GameObject choosePlayer2;
-    public GameObject chooseAttack;
-    public GameObject chooseDefend;
-    public GameObject chooseHighPitch;
-    public GameObject pickTargetEnemy;
-    public GameObject pickTargetEnemy1;
-    public GameObject pickTargetEnemy2;
-    public GameObject pickTargetPlayer;
-    public GameObject pickTargetPlayer1;
-    public GameObject pickTargetPlayer2;
-    public GameObject hpBarPlayer;
-    public GameObject hpBarPlayer1;
-    public GameObject hpBarPlayer2;
-    public GameObject hpBarEnemy;
-    public GameObject hpBarEnemy1;
-    public GameObject hpBarEnemy2;
+    //public GameObject choosePlayer;
+    //public GameObject choosePlayer1;
+    //public GameObject choosePlayer2;
+    //public GameObject chooseAttack;
+    //public GameObject chooseDefend;
+    //public GameObject chooseHighPitch;
+
+    public List<GameObject> EnemyList;
+    public List<GameObject> AllyList;
+
+    //public GameObject pickTargetEnemy;
+    //public GameObject pickTargetEnemy1;
+    //public GameObject pickTargetEnemy2;
+    //public GameObject pickTargetPlayer;
+    //public GameObject pickTargetPlayer1;
+    //public GameObject pickTargetPlayer2;
+    //public GameObject hpBarPlayer;
+    //public GameObject hpBarPlayer1;
+    //public GameObject hpBarPlayer2;
+    //public GameObject hpBarEnemy;
+    //public GameObject hpBarEnemy1;
+    //public GameObject hpBarEnemy2;
 
 
     public GameObject[] alliesInScene;
@@ -29,6 +41,13 @@ public class BattleUIScript : MonoBehaviour
     public int chosenAction = 0;
     public int chosenEnemy = 0;
     public int chosenAlly = 0;
+
+    public int AmountOfAllies = 1;
+    public int AmountOfEnemies = 1;
+
+    Dictionary<string, (int,float)> HealthBars = new Dictionary<string, (int,float)>();
+
+
     public GameObject affectedFigher;
 
     private EnemyBattleScript enemyBattleScript;
@@ -39,36 +58,231 @@ public class BattleUIScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        choosePlayer.SetActive(false);
-        choosePlayer1.SetActive(false);
-        choosePlayer2.SetActive(false);
-        chooseAttack.SetActive(false);
-        chooseDefend.SetActive(false);
-        chooseHighPitch.SetActive(false);
-        pickTargetEnemy.SetActive(false);
-        pickTargetEnemy1.SetActive(false);
-        pickTargetEnemy2.SetActive(false);
-        pickTargetPlayer.SetActive(false);
-        pickTargetPlayer1.SetActive(false);
-        pickTargetPlayer2.SetActive(false);
-        hpBarPlayer.SetActive(false);
-        hpBarPlayer1.SetActive(false);
-        hpBarPlayer2.SetActive(false);
-        hpBarEnemy.SetActive(false);
-        hpBarEnemy1.SetActive(false);
-        hpBarEnemy2.SetActive(false);
+        for (int i = 0; i < AmountOfAllies; i++)
+        {
+            AllyList[i].SetActive(true);
+
+        }
+        for (int i = 0; i < AmountOfEnemies; i++)
+        {
+            EnemyList[i].SetActive(false);
+        }
+
+
+        //choosePlayer.SetActive(false);
+        //choosePlayer1.SetActive(false);
+        //choosePlayer2.SetActive(false);
+        //chooseAttack.SetActive(false);
+        //chooseDefend.SetActive(false);
+        //chooseHighPitch.SetActive(false);
+        //pickTargetEnemy.SetActive(false);
+        //pickTargetEnemy1.SetActive(false);
+        //pickTargetEnemy2.SetActive(false);
+        //pickTargetPlayer.SetActive(false);
+        //pickTargetPlayer1.SetActive(false);
+        //pickTargetPlayer2.SetActive(false);
+        //hpBarPlayer.SetActive(false);
+        //hpBarPlayer1.SetActive(false);
+        //hpBarPlayer2.SetActive(false);
+        //hpBarEnemy.SetActive(false);
+        //hpBarEnemy1.SetActive(false);
+        //hpBarEnemy2.SetActive(false);
 
         FindFightersInScene();
-        SetupUI();
+        //SetupUI();
+    }
+
+    public void AllyChosen(GameObject thisObject)
+    {
+        string CurrentAttacker = thisObject.name;
+
+        //Disable itself when attacked
     }
 
 
+
+    public void AttackChosen()
+    {
+        //Type of attack
+
+    }
+    public void TargetChosen()
+    {
+        //Target of attack
+
+    }
+
+    void ThisAttack()
+    {
+        if (AttackType == "Attack")
+        {
+            DoDamage(TargetChosen, currentAttacker.GetComponent<StatScript>().damage));
+        }
+        else if (attackType == "Defend")
+        {
+            target.GetComponent<AllyBattleScript>().IsBlocked = true;
+
+        }
+        else if (screech ... ){
+            hornet.GEtCOmponent<Stats>().blockingMult = 1;
+        }
+
+        attackDone(CurrentAttacker);
+        AllPlayersAttacked()
+    }
+
+
+    void AllPlayersAttacked()
+    {
+        if (attackedCount == activeAlly)
+        {
+            hornetAttack();
+        }
+    }
+
+    void AttackDone(string name)
+    {
+
+    }
     void FindFightersInScene()
     {
-        alliesInScene = GameObject.FindGameObjectsWithTag("Allies");
-        enemiesInScene = GameObject.FindGameObjectsWithTag("Enemies");
+        foreach (GameObject ally in AllyList)
+        {
+            if (ally == isActiveAndEnabled)
+            {
+
+                AllyBattleScript temp = ally.GetComponent<AllyBattleScript>();
+                float nr = temp.GetHP();
+
+                HealthBars.Add(ally.name, (1,nr));
+
+
+                print(HealthBars[ally.name]);
+
+                (int, float) johnson = HealthBars[ally.name];
+                johnson.Item2 -= 10;
+
+                HealthBars[ally.name] = johnson;
+            }
+        }
+        foreach (GameObject enemy in EnemyList)
+        {
+            if (enemy == isActiveAndEnabled)
+            {
+                HealthBars.Add(enemy.name, (2,50));
+            }
+        }
     }
 
+
+    void EnemyAttack(float Damage)
+    {
+        foreach (int i = 0; i < AmountOfEnemies; i++){
+
+
+            int random = Random.Range(0, activeAlly);
+
+            DoDamage(AllyList[random].name, EnemyList[i].GetComponent <StatList>().damage);
+        }
+    }
+    public void DoDamage(string name, float damage)
+    {
+        if (HealthBars.ContainsKey(name))
+        {
+            (int, float) temp = HealthBars[name];
+
+            if (HealthBars[name].Item1 == 1)
+            {
+                temp.Item2 -= damage * Blocking(name);
+
+                HealthBars[name] = temp;
+
+                if (HealthBars[name].Item2 <= 0)
+                {
+
+                    foreach (GameObject ally in AllyList)
+                    {
+                        if (ally.name == name)
+                        {
+                            ally.SetActive(false);
+                            HealthBars.Remove(ally.name);
+                            AmountOfAllies--;
+                        }
+
+                    }
+                }
+            }
+
+            if (HealthBars[name].Item1 == 2)
+            {
+                temp.Item2 -= damage;
+
+                HealthBars[name] = temp;
+                if (HealthBars[name].Item2 <= 0)
+                {
+
+                    foreach (GameObject enemy in EnemyList)
+                    {
+                        if (enemy.name == name)
+                        {
+                            enemy.SetActive(false);
+                            HealthBars.Remove(enemy.name);
+                            AmountOfEnemies--;
+                        }
+
+                    }
+                }
+            }
+        
+            IsBattleFinished();
+        }
+        else
+        {
+            Debug.LogWarning("Target Does Not Exist!!");
+        }
+    }
+    public float Blocking(string l)
+    {
+        float DmgMult = 0.50f;
+
+        foreach (GameObject g in AllyList)
+        {
+            if (g.name == l)
+            {
+                bool isBlocked = g.GetComponent<AllyBattleScript>().IsBlocked;
+                if (isBlocked)
+                {
+                    g.GetComponent<AllyBattleScript>().IsBlocked = false;
+                    return DmgMult;
+                   
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+
+        }
+
+        return 1;
+        
+    }
+
+    void IsBattleFinished()
+    {
+        if (AmountOfEnemies == 0 && AmountOfAllies > 0)
+        {
+            Debug.LogWarning("Allies Win!");
+        }
+        if (AmountOfEnemies > 0 && AmountOfAllies == 0)
+        {
+            Debug.LogWarning("Enemies win!");
+        }
+    }
+
+
+
+    /*
     void SetupUI()
     {
         if (alliesInScene.Length >= 1)
@@ -280,4 +494,6 @@ public class BattleUIScript : MonoBehaviour
         enemyBattleScript.TimeToAttack();
 
     }
-}
+    */
+//}
+

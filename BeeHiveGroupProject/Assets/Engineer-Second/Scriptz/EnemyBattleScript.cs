@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
 public class EnemyBattleScript : MonoBehaviour
 {
     public AllyBattleScript allyBattleScript;
-    public BattleUIScript battleUIScript;
+    //public BattleUIScript battleUIScript;
     public GameObject attackTarget;
     public float damageAmount = 3;
 
@@ -22,6 +22,10 @@ public class EnemyBattleScript : MonoBehaviour
         hpBar.maxValue = maxHp;
         currentHp = maxHp;
         hpBar.value = currentHp;
+
+
+        
+
     }
 
 
@@ -30,7 +34,10 @@ public class EnemyBattleScript : MonoBehaviour
             ChooseTarget();
             DoDamage();
     }
-
+    public float GetHP()
+    {
+        return maxHp;
+    }
     void ChooseTarget()
     {
         int randomNumber = Random.Range(0,battleUIScript.alliesInScene.Length);
@@ -53,3 +60,4 @@ public class EnemyBattleScript : MonoBehaviour
     }
 
 }
+*/
