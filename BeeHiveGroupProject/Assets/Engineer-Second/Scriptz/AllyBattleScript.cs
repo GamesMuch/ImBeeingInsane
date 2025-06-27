@@ -45,7 +45,7 @@ public class AllyBattleScript : MonoBehaviour
     public void CheckForDefense()
     {
 
-        if (battleUIScript.affectedFigher = gameObject)
+        if (battleUIScript.affectedFigher == gameObject)
         {
             damageModifier = 0.5f;
             Debug.Log("Set damage modifier to" + damageModifier);
