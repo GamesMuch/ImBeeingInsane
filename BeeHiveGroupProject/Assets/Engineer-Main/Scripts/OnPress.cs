@@ -19,13 +19,13 @@ public class OnPress : MonoBehaviour
     }
     void MousePress()
     {
+        
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out hit))
         {
-            
-            if (hit.collider.name == gameObject.name)
+            if (hit.collider.gameObject == gameObject)
             {
-                parentInteraction.Interaction();
+                parentInteraction.StartCoroutine(parentInteraction.Interaction());
             }
         }
     }

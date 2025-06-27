@@ -45,9 +45,10 @@ public class DialogueBox : MonoBehaviour
 
     
     List<(int, string)> D = new List<(int, string)>(); 
-    List<string> partsOfLines = new List<string>();    
+    List<string> partsOfLines = new List<string>();
 
-    Dictionary<int, int> choicesList = new Dictionary<int, int>();
+    [HideInInspector]
+    public Dictionary<int, int> choicesList = new Dictionary<int, int>();
 
     [Tooltip("How many characters per part get revealed")]
     public int lettersPerBatch = 3;
@@ -55,27 +56,32 @@ public class DialogueBox : MonoBehaviour
     public float talkSpeed = 1;
 
     //Bools for talk logic
-    bool inDialogue = false;
+    public bool inDialogue = false;
     bool NextLine = true;
     bool Tapped;
     bool NoOption = true;
 
     //Some variables
-    int line;           
-    int AnswerID;      
+    int line;
+    [HideInInspector]
+    public int AnswerID;      
     int CurrentQuestion; 
 
-    //Just timechecker
+    //Just time checker
     float time;
 
     #region SourceCode
 
     public void OnTalk()
     {
+        line = 0;
+        Tapped = true;
         inDialogue = true;
         Player.agent.isStopped = true;
+        Player.canMove = false;
+
         choicesList.Clear();
-        line = 0;
+        
 
         partsOfLines.Clear();
         D.Clear();
@@ -84,13 +90,21 @@ public class DialogueBox : MonoBehaviour
         
         InitializeDialogue();
 
-        TryTalk();
+        StartCoroutine(waitAFrame());
        
+    }
+    IEnumerator waitAFrame()
+    {
+        yield return null;
+        print("Gwork");
+        TryTalk();
     }
     void TryTalk()
     {
+        Debug.Log("Grink");
         if (inDialogue)
         {
+            Debug.Log("Grockle");
             Player.agent.isStopped = true;
             Player.GetComponent<PlayerMovement>().canMove = false;
 
@@ -98,17 +112,21 @@ public class DialogueBox : MonoBehaviour
 
             if (Tapped && NextLine && NoOption)
             {
+                Tapped = false;
+                Debug.Log("Vesuvius");
+                
+
                 partsOfLines.Clear();
                 D.Clear();
                 StopCoroutine("TalkAvatar");
-                
 
                 InitializeDialogue();
+
 
                 if (line < D.Count)
                 {
 
-                    Tapped = false;
+                    
                     NextLine = false;
 
                     int nr = D[line].Item1;
@@ -120,8 +138,10 @@ public class DialogueBox : MonoBehaviour
                 else
                 {
                     DialogueEnd();
+                    Debug.Log("Bread in france");
                 }
             }
+            print("springus");
         }
     }
     void Talk(int nr, string sentence)
@@ -184,33 +204,23 @@ public class DialogueBox : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (inDialogue)
         {
-            Tapped = true;
-            TryTalk();
-        }
-        else
-        {
-            Tapped = false;
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Tapped = true;
+                TryTalk();
+            }
         }
     }
 
 
     #region Choosing
-    public void FirstOption()
-    {
-        choicesList[AnswerID]= 1;
-        NoOption = true;
-        FirstOptionBox.SetActive(false);
-        SecondOptionBox.SetActive(false);
-        Tapped = true;
-        NextLine = true;
 
-        TryTalk();
-    }
-    public void SecondOption()
+
+    public void DidOption()
     {
-        choicesList[AnswerID]= 2;
+        print("AGONY");
         NoOption = true;
         FirstOptionBox.SetActive(false);
         SecondOptionBox.SetActive(false);
@@ -269,8 +279,14 @@ public class DialogueBox : MonoBehaviour
 
 
             TextBox.text += s;
-
-            yield return new WaitForSeconds(1f / (talkSpeed * partsOfLines.Count));
+            if (Tapped == false)
+            {
+                yield return new WaitForSeconds(1f / (talkSpeed * partsOfLines.Count));
+            }
+            if (Tapped == true)
+            {
+                yield return null;
+            }
         }
         
     }
@@ -426,9 +442,9 @@ public class DialogueBox : MonoBehaviour
         if (ifX(AnswerID) == 1)
         {
             N("Thats amazing");
-            N("Thats amazing2");
+            N("According to all known laws of aviation, there is no way a bee should be able to fly, its wings are too small");
             A("Yeah");
-            A("No fuck you!");
+            A("YeahNr2");
             AnswerID = 2;
             if (ifX(AnswerID) == 1)
             {

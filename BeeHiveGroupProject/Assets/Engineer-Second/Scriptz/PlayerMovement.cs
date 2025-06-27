@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public NavMeshAgent agent;
     public Vector3 roomLocation;
     public bool canMove = true;
+
+    public bool ImportantMovement = false;
     bool isMoving;
 
     float CheckCooldown = 0.4f;
@@ -24,26 +26,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            agent.isStopped = false;
-            currentTime = 0;
-            isMoving = true;
-            MoveToLocation();
-        }
-
-    }
-
-    void MoveToLocation()
-    {
-        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(raycast, out RaycastHit hit, 80);
-
         if (canMove == true)
         {
-            if (hit.collider.CompareTag("Floor"))
+            if (Input.GetMouseButtonDown(0))
             {
-                agent.destination = hit.point;
+                agent.isStopped = false;
+                currentTime = 0;
+                isMoving = true;
+                MoveToLocation();
             }
         }
         if (isMoving == true)
@@ -59,6 +49,56 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     pastLocation = transform.position;
+                }
+            }
+        }
+    }
+
+    void MoveToLocation()
+    {
+        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(raycast, out RaycastHit hit, 80);
+
+        if (ImportantMovement == false)
+        {
+
+            if (canMove == true)
+            {
+                if (hit.collider.CompareTag("Floor"))
+                {
+                    agent.destination = hit.point;
+                }
+                if (hit.collider.CompareTag("NPC"))
+                {
+                    agent.destination = hit.point;
+                }
+            }
+            if (isMoving == true)
+            {
+                currentTime += Time.deltaTime;
+                if (CheckCooldown < currentTime)
+                {
+                    currentTime = 0;
+                    if (Vector3.Distance(transform.position, pastLocation) <= 0.1f)
+                    {
+                        agent.isStopped = true;
+                    }
+                    else
+                    {
+                        pastLocation = transform.position;
+                    }
+                }
+            }
+        }
+        else if (ImportantMovement == true)
+        {
+            if (canMove == true)
+            {
+                
+                if (hit.collider.CompareTag("NPC"))
+                {
+                    Debug.Log("Hit the npc");
+                    agent.destination = hit.point;
                 }
             }
         }

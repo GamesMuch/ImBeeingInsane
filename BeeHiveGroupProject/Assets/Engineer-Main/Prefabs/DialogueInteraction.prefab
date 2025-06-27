@@ -176,7 +176,7 @@ Transform:
   m_GameObject: {fileID: 4692612686334226068}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 390.9489, y: 579.3362, z: -625.1816}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -197,6 +197,9 @@ MonoBehaviour:
   NPCAvatar:
     MouthOpen: {fileID: 0}
     MouthClosed: {fileID: 0}
+  NPCAvatar2:
+    MouthOpen: {fileID: 0}
+    MouthClosed: {fileID: 0}
   Info: {fileID: 0}
   Player: {fileID: 0}
   DialogueImage: {fileID: 0}
@@ -207,6 +210,7 @@ MonoBehaviour:
   ThisNPC: 9
   lettersPerBatch: 3
   talkSpeed: 2
+  AnswerID: 0
 --- !u!1 &5201280139554722754
 GameObject:
   m_ObjectHideFlags: 0

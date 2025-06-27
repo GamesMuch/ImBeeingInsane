@@ -16,7 +16,7 @@ public class DoorCheck : MonoBehaviour
         if (InfoStorage.Instance != null && localStorage.player != null && InfoStorage.Instance.DoorID != 0)
         {
             bool found = false;
-            foreach (DoorScript d in localStorage.doors)
+            foreach (DoorScript d in localStorage.stairs)
             {
                 print(d.gameObject.name);
                 Debug.Log("Wagh");

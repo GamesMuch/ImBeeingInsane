@@ -10,7 +10,13 @@ public class LocalStorage : MonoBehaviour
 
     public GameObject blinkItem;
 
-    public List<DoorScript> doors = new();
+    public List<DoorScript> stairs = new();
+
+    public List<DialogueBox> dialogueBoxes = new();
+
+    int answerNr;
+
+    public bool InDialogue;
 
     void Start()
     {
@@ -22,6 +28,35 @@ public class LocalStorage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+    public void FirstAnswer()
+    {
+        foreach (DialogueBox d in dialogueBoxes)
+        {
+            if (Vector3.Distance(player.transform.position, d.gameObject.transform.position) <= 2f)
+            {
+                d.choicesList[d.AnswerID] = 1;
+                d.DidOption();
+                break;
+            }
+        }
+    }
+    public void SecondAnswer()
+    {
+        foreach (DialogueBox d in dialogueBoxes)
+        {
+            if (Vector3.Distance(player.transform.position, d.gameObject.transform.position) <= 2f)
+            {
+                d.choicesList[d.AnswerID] = 2;
+                d.DidOption();
+                break;
+            }
+        }
+    }
+
+
+
+
 }
