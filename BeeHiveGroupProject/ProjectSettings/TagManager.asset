@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Floor
   - Room Collider
+  - Allies
+  - Enemies
   layers:
   - Default
   - TransparentFX
