@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DoorCheck : MonoBehaviour
 {
-    public LocalStorage localStorage;
+    
 
     void Start()
     {
@@ -13,25 +13,25 @@ public class DoorCheck : MonoBehaviour
     }
     void CheckIfExists()
     {
-        if (InfoStorage.Instance != null && localStorage.player != null && InfoStorage.Instance.DoorID != 0)
+        if (InfoStorage.Instance != null && InfoStorage.Instance.player != null && InfoStorage.Instance.DoorID != 0)
         {
             bool found = false;
-            foreach (DoorScript d in localStorage.stairs)
+            foreach (DoorScript d in InfoStorage.Instance.stairs)
             {
                 print(d.gameObject.name);
                 Debug.Log("Wagh");
                 if (d.doorID == InfoStorage.Instance.DoorID)
                 {
-                    localStorage.player.transform.position = d.transform.position;
+                    InfoStorage.Instance.player.transform.position = d.transform.position;
                     found = true;
                     break;
                 }
             }
             if (!found)
             {
-                if (localStorage.nullSpawn != null)
+                if (InfoStorage.Instance.nullSpawn != null)
                 {
-                    localStorage.player.transform.position = localStorage.nullSpawn.position;
+                    InfoStorage.Instance.player.transform.position = InfoStorage.Instance.nullSpawn.position;
                 }
                 Debug.LogWarning("There is no spawn door");
             }

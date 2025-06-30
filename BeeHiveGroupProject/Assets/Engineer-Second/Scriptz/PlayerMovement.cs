@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -29,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                // Prevent movement if pointer is over UI
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;  // Ignore clicks on UI buttons
+                }
+
                 agent.isStopped = false;
                 currentTime = 0;
                 isMoving = true;

@@ -60,6 +60,7 @@ public class DialogueBox : MonoBehaviour
     bool NextLine = true;
     bool Tapped;
     bool NoOption = true;
+    public bool IsScreeched;
 
     //Some variables
     int line;
@@ -71,6 +72,8 @@ public class DialogueBox : MonoBehaviour
     float time;
 
     #region SourceCode
+
+
 
     public void OnTalk()
     {
@@ -96,15 +99,15 @@ public class DialogueBox : MonoBehaviour
     IEnumerator waitAFrame()
     {
         yield return null;
-        print("Gwork");
+        
         TryTalk();
     }
     void TryTalk()
     {
-        Debug.Log("Grink");
+        
         if (inDialogue)
         {
-            Debug.Log("Grockle");
+          
             Player.agent.isStopped = true;
             Player.GetComponent<PlayerMovement>().canMove = false;
 
@@ -113,7 +116,7 @@ public class DialogueBox : MonoBehaviour
             if (Tapped && NextLine && NoOption)
             {
                 Tapped = false;
-                Debug.Log("Vesuvius");
+               
                 
 
                 partsOfLines.Clear();
@@ -138,10 +141,10 @@ public class DialogueBox : MonoBehaviour
                 else
                 {
                     DialogueEnd();
-                    Debug.Log("Bread in france");
+                
                 }
             }
-            print("springus");
+            
         }
     }
     void Talk(int nr, string sentence)
@@ -185,7 +188,7 @@ public class DialogueBox : MonoBehaviour
         else if (nr == 4)
         {
             DialogueEnd();
-            Debug.Log("IT GOTTA STOP");
+           
         }
         StartCoroutine(AddToText(nr));
         StartCoroutine(TalkAvatar(nr));
