@@ -12,6 +12,7 @@ TagManager:
   - Enemies
   - JustBlinks
   - NPC
+  - Door
   layers:
   - Default
   - TransparentFX

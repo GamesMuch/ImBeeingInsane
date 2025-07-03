@@ -78,6 +78,10 @@ public class PlayerMovement : MonoBehaviour
                 {
                     agent.destination = hit.point;
                 }
+                if (hit.collider.CompareTag("Door"))
+                {
+                    agent.destination = hit.point;
+                }
             }
             if (isMoving == true)
             {
@@ -103,7 +107,11 @@ public class PlayerMovement : MonoBehaviour
                 
                 if (hit.collider.CompareTag("NPC"))
                 {
-                    Debug.Log("Hit the npc");
+                    
+                    agent.destination = hit.point;
+                }
+                if (hit.collider.CompareTag("Door"))
+                {
                     agent.destination = hit.point;
                 }
             }

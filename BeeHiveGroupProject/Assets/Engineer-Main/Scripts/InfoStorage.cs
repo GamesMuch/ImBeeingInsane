@@ -41,7 +41,7 @@ public class InfoStorage : MonoBehaviour
 
    
 
-    public int DoorID;
+    public string DoorID;
     public GameObject currentDoor;
 
     public GameObject player;
@@ -53,11 +53,11 @@ public class InfoStorage : MonoBehaviour
 
     public GameObject blinkItem;
 
-    public List<DoorScript> stairs = new();
+    public List<DoorScript> doors = new();
 
     public List<DialogueBox> dialogueBoxes = new();
 
-    int answerNr;
+    
 
     public bool InDialogue;
 
@@ -66,6 +66,7 @@ public class InfoStorage : MonoBehaviour
     float doorDist;
 
     public bool PollenAquired;
+    public bool GotScreech;
     public bool GotHornet;
 
 
@@ -87,25 +88,35 @@ public class InfoStorage : MonoBehaviour
     }
     void Start()
     {
+
+        DoorScript[] temp = FindObjectsByType<DoorScript>(FindObjectsSortMode.None);
+        foreach (DoorScript obj in temp)
+        {
+            if (!doors.Contains(obj))
+            {
+                doors.Add(obj);
+            }
+        }
+
         blinkItem.SetActive(true);
         blinkItem.SetActive(false);
         musicPlayer = GetComponent<AudioSource>();
     }
     private void Update()
     {
-        //if (!canDoor)
-        //{
-            
-        //    time += Time.deltaTime;
-        //    if (time > 1)
-        //    {
-        //        canDoor = true;
-        //    }
-        //}
-        //if (canDoor)
-        //{
-        //    time = 0;
-        //}
+        if (!canDoor)
+        {
+
+            time += Time.deltaTime;
+            if (time > 1)
+            {
+                canDoor = true;
+            }
+        }
+        if (canDoor)
+        {
+            time = 0;
+        }
     }
     public void FirstAnswer()
     {
@@ -136,20 +147,20 @@ public class InfoStorage : MonoBehaviour
         if (canDoor == true)
         {
             canDoor = false;
-            foreach (DoorScript door in stairs)
+            foreach (DoorScript door in doors)
             {
                 if (door.doorID == DoorID && currentDoor.name != door.gameObject.name)
                 {
                     print (currentDoor.name);
                     print(door.gameObject.name);
-                    player.transform.position = door.transform.position;
-                    
+                    door.MovePlayerHere();
+                    break;
                 }
             }
             
             PlayMusic("Door");
 
-            print("Jumped!");
+            
             
         }
     }
@@ -161,22 +172,22 @@ public class InfoStorage : MonoBehaviour
             musicPlayer.clip = allMusic.QueenSound;
             musicPlayer.Play();
         }
-        if (song == "Door")
+        else if (song == "Door")
         {
             musicPlayer.clip = allMusic.DoorSound;
             musicPlayer.Play();
         }
-        if (song == "Talk")
+        else if (song == "Talk")
         {
             musicPlayer.clip = allMusic.TypeSound;
             musicPlayer.Play();
         }
-        if (song == "Screech")
+        else if (song == "Screech")
         {
             musicPlayer.clip = allMusic.ScreechSound;
             musicPlayer.Play();
         }
-        if (song == null)
+        else
         {
             Debug.LogWarning("No audio selected!");
         }

@@ -1,17 +1,24 @@
+using System.Collections;
 using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
+[DisallowMultipleComponent]
 public class DoorScript : MonoBehaviour
 {
-    public int doorID;
-    public GameObject doorSpawn;
+    public string doorID;
 
     private void OnCollisionEnter(Collision other)
     {
+        print("Collided with " +  other.gameObject.name);
         InfoStorage.Instance.currentDoor = gameObject;
         InfoStorage.Instance.DoorID = doorID;
         InfoStorage.Instance.OtherDoor();
+    }
+    public void MovePlayerHere()
+    {
+        InfoStorage.Instance.player.GetComponent<PlayerMovement>().agent.Warp(GetComponentInChildren<ChildMarker>().gameObject.transform.position);
     }
 }
