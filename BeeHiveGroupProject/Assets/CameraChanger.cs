@@ -7,8 +7,10 @@ public class CameraChanger : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        print("Collided: "+ collision.collider.tag);
         if (!hasAdjustedCamera && collision.gameObject.CompareTag("Floor"))
         {
+            print("augh");
             hasAdjustedCamera = true;
 
             Vector3 pos = collision.gameObject.transform.position;
