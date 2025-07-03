@@ -77,17 +77,19 @@ public class DialogueBox : MonoBehaviour
 
     public void OnTalk()
     {
+        choicesList.Clear();
+
+
+        partsOfLines.Clear();
+        D.Clear();
+
         line = 0;
         Tapped = true;
         inDialogue = true;
         Player.agent.isStopped = true;
         Player.canMove = false;
 
-        choicesList.Clear();
-        
 
-        partsOfLines.Clear();
-        D.Clear();
         
 
         
@@ -107,7 +109,8 @@ public class DialogueBox : MonoBehaviour
         
         if (inDialogue)
         {
-          
+
+            print("Tapped = " + Tapped + " NextLine = " + NextLine + " No Option = " + NoOption);
             Player.agent.isStopped = true;
             Player.GetComponent<PlayerMovement>().canMove = false;
 
@@ -129,7 +132,7 @@ public class DialogueBox : MonoBehaviour
                 if (line < D.Count)
                 {
 
-                    
+                    print(line);
                     NextLine = false;
 
                     int nr = D[line].Item1;
@@ -229,6 +232,8 @@ public class DialogueBox : MonoBehaviour
         SecondOptionBox.SetActive(false);
         Tapped = true;
         NextLine = true;
+
+        print("Did the option idk what to tell you mate");
 
         TryTalk();
     }
