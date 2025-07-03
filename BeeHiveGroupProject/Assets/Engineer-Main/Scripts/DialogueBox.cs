@@ -39,7 +39,7 @@ public class DialogueBox : MonoBehaviour
     public GameObject SecondOptionBox;
 
     
-    public enum NPC { none, worker, grandpa, queen, trauma, guard, ass, sleepGuard, test, questions }
+    public enum NPC { none, drunk, grandpa, queen, trauma, guard, ass, sleepGuard, test, questions }
     [Tooltip("Which NPC this is")]
     public NPC ThisNPC = NPC.none;
 
@@ -223,7 +223,7 @@ public class DialogueBox : MonoBehaviour
 
     public void DidOption()
     {
-        print("AGONY");
+        
         NoOption = true;
         FirstOptionBox.SetActive(false);
         SecondOptionBox.SetActive(false);
@@ -276,6 +276,7 @@ public class DialogueBox : MonoBehaviour
     //StopCoroutine("AddToText");
     IEnumerator AddToText(int nr)
     {
+        InfoStorage.Instance.PlayMusic("Talk");
         foreach (string s in partsOfLines) {
 
             if (string.IsNullOrEmpty(s)) yield break;
@@ -291,6 +292,7 @@ public class DialogueBox : MonoBehaviour
                 yield return null;
             }
         }
+        InfoStorage.Instance.StopMusic();
         
     }
     IEnumerator TalkAvatar(int nr)
@@ -349,8 +351,8 @@ public class DialogueBox : MonoBehaviour
 
                 break;
 
-            case NPC.worker:
-                WorkerDialogue();
+            case NPC.drunk:
+                DrunkDialogue();
                 break;
 
             case NPC.grandpa:
@@ -392,6 +394,7 @@ public class DialogueBox : MonoBehaviour
     }
     //etc
     #endregion
+    #region Dialogue
     void TestDialogue()
     {
         N("Hello there");
@@ -466,21 +469,116 @@ public class DialogueBox : MonoBehaviour
     }
 
 
-    void WorkerDialogue()
-    {
 
-    }
     void QueenDialogue()
     {
+        N("Why have you come to disturb me, worker?");
+        P("Your Buzzyness, hornets are coming to attack the hive!");
+        N("Oh my little one, what an imagination do you have.");
+        P("Your Majestbee it’s true!");
+        N("Why would I believe a lowly bee like yourself?");
+        P("I can prove it!");
 
+        // [Show evidence] — narrative action (keep as a comment or turn into a function if you handle events)
+
+        N("Well, this certainly casts a different light on things. How did you come to possess this?");
+        P("Your Majestbee, earlier a hornet tried to break in through one of the cracks in the wall.");
+        N("And you… you defeated it?");
+        P("With help of the guards…");
+        N("You’ve done well, I’ll warn the workers and we’ll defend ourselves! Good job");
+        P("Thank you, your MajestBee");
+        End();
+        QueenScreech();
     }
     void AssistantDialogue()
     {
+        N("What is a little worker like you doing in the royal quarters of Her MajestBee?");
+        P("I have an urgent message for the QUEEN!");
+        N("Everybee has an urgent message for the QUEEN these days. What, pray tell, makes yours any different?");
+        P("It’s about the safety of the hive!");
+        N("The safety of the hive? How very… ambitious of you. If you expect to bother her Majestbee, you’ll first need to prove you speak of truth.");
+        P("I- I have proof here!");
+        N("How did you- Hmpf. Very well, I suppose I can grant you, small bee, the rare honor of an audience. But only this once.");
+        P("Thank you.");
+        N("Do try not to waste her MajestBee’s time.");
+        End();
+    }
+    void DrunkDialogue()
+    {
+        if (InfoStorage.Instance.PollenAquired == false)
+        {
+            P("Buzz! BUZZBEE. I need your help!");
+            N("*hiccup* Whatcha need, honeybun?");
+            P("Well… PTSBEE is buzzed out of his mind. He told me to find you.");
+            N("And why is that my problem?");
+            P("I…. Can’t you help me?");
+            N("Tsss, as if I’d ever, *hiccup* help anyone for free.");
+            P("What do you want?");
+            N("You little... honeybun... can’t get what I want.");
+            P("It’s at least worth the try!");
+            N("You know what… *hiccup* I am running low on pollen and, *hiccup* I’d like to restash.");
+            P("Why ask me? Can’t you just ask them for more?");
+            N("….");
+            N("I’m not really allowed anymore…");
+            P("Ohh….");
+            P("Where can I find the pollen?");
+            N("It’s downstairs in the storage. But you gotta pass ANTO and PHILA.");
+            P("If I get it for you, will you help me?");
+            N("*laughs* If you can get it for me, I’ll help ya with ya trouble.");
+            N("Yeah… so you get it for me. And be quick.");
+            End();
+        }
+
+        else if (InfoStorage.Instance.PollenAquired == true)
+        {
+            N("Finally lil’ HoneyBun. *hiccup* could it have taken ya any longer.");
+            P("I’m sorry, there was some… trouble.");
+            N("At least ya got tha deed done ey.");
+            P("Can you please help me now?");
+            N("Aight, aight….");
+            P("…");
+            N("What did ya need help with again?");
+            P("I need to help PTSBEE! She’s in shock!");
+            N("Yeah right. You need to use yer high pitch on her.");
+            P("My… My what?");
+            N("Yer high pitch. Repeat after me!");
+            End();
+        }
 
     }
     void TraumaDialogue()
     {
+        if (IsScreeched == false)
+        {
+            P("PTSBEE! What’s wrong?");
+            S("Coming... *buzz*");
+            P("What’s coming?");
+            S("*buzz* They’re coming...! *buzz*");
+            P("He’s too traumatized. I can’t get through to him.");
+            S("Find…… BUZZBEE");
+            P("Okay, okay. I’ll find him. Just, stay here okay?");
+            End();
+        }
+        if (IsScreeched == true)
+        {
+            P("PTSBEE, are you okay?");
+            S("SKIBEE! I- Thank you...");
+            P("What got you stinged?");
+            S("Oh, SKIBEE it’s horrible. Just horrible. The worst thing ever. I can’t even Beelieve it. I-");
+            P("Focus, what happened?");
+            S("The hornets. It’s the hornets. A hundred, no no, a thousands! A whole army is on their way!");
+            P("To where?? The hive?");
+            S("Yes. Oh my Bee. We’re all gonna die!");
+            P("Buzz up. We’re not, okay? We just gotta warn the QUEEN.");
+            S("How? We’re just some lowly worker bees. We’re the lowest rank in the hive! They’re not gonna listen to you.");
+            P("If we prove to the QUEEN there is a threat, she’ll have to believe us.");
+            S("But how would we-");
 
+            //Play hornet sound?
+
+            P("The hornet! If we can bring him to the QUEEN she’ll know.");
+            End();
+        }
     }
     void OldManDialogue()
     {
@@ -488,10 +586,64 @@ public class DialogueBox : MonoBehaviour
     }
     void GuardDialogue()
     {
+        if (InfoStorage.Instance.GotHornet == false)
+        {
+            P("Euh hello? May I go in please?");
+            N("Name?");
+            P("SKIBEE");
+            S("No");
+            P("No? No what?");
+            N("No access.");
+            P("So, how can I get access?");
+            S("You can’t.");
+            N("Get lost.");
 
+
+            A("Give up");
+            A("Warn about the hornet");
+
+            AnswerID = 1;
+            if (ifX(AnswerID) == 1)
+            {
+                End();
+            }
+            if (ifX(AnswerID) == 2)
+            {
+                P("Guards! Guards!");
+                N("What?");
+                P("The crack! There is a hornet coming through the crack!");
+                S("Liar");
+
+                // Sounds of commotion
+
+                N("Hurry!");
+                P("Bee safe!");
+                End();
+            }
+        }
+        if (InfoStorage.Instance.GotHornet == true)
+        {
+            P("This antenna should be enough proof. I hope the queen will believe me.");
+            N("Beware.");
+            P("Beware of what?");
+            S("Secreterbee.");
+            P("Why, what is wrong with her?");
+            N("She’s beetchy.");
+            P("How do I get past her?");
+            S("Compliment.");
+            N("Not too much.");
+            P("Okayy…. Thank you!");
+            End();
+
+        }
+    }
+    void QueenScreech()
+    {
+        InfoStorage.Instance.PlayMusic("Queen");
     }
     void SleepingDialogue()
     {
 
     }
+#endregion
 }

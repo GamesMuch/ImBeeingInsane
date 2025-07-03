@@ -9,6 +9,7 @@ public class Screecher : MonoBehaviour
         if (otherObj != null)
         {
             otherObj.GetComponentInChildren<DialogueBox>().IsScreeched = true;
+            InfoStorage.Instance.PlayMusic("Screech");
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -16,7 +17,7 @@ public class Screecher : MonoBehaviour
         if (other.gameObject.CompareTag("NPC"))
         {
             otherObj = other.gameObject;
-            print(other.name);
+           
         }
     }
     private void OnTriggerExit(Collider other)
@@ -24,7 +25,7 @@ public class Screecher : MonoBehaviour
         if (other.gameObject.CompareTag("NPC"))
         {
             otherObj = null;
-            print(other.name);
+           
         }
     }
 }

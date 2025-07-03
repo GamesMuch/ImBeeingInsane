@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -20,15 +21,31 @@ public class InfoStorage : MonoBehaviour
         public SceneAsset Scene3;
     }
 
+    [System.Serializable]
+    public struct Music
+    {
+        public AudioClip QueenSound;
+        public AudioClip TypeSound;
+        public AudioClip ScreechSound;
+        public AudioClip DoorSound;
+    }
+    public Music allMusic;
+
+    AudioSource musicPlayer;
     public allLevels Scenes;
 
     public PlayerAvatar playerAvatar;
 
+
+   
+
    
 
     public int DoorID;
+    public GameObject currentDoor;
 
     public GameObject player;
+    
 
     public Transform nullSpawn;
 
@@ -43,6 +60,15 @@ public class InfoStorage : MonoBehaviour
     int answerNr;
 
     public bool InDialogue;
+
+    float time;
+    public bool canDoor;
+    float doorDist;
+
+    public bool PollenAquired;
+    public bool GotHornet;
+
+
 
 
 
@@ -63,7 +89,23 @@ public class InfoStorage : MonoBehaviour
     {
         blinkItem.SetActive(true);
         blinkItem.SetActive(false);
-
+        musicPlayer = GetComponent<AudioSource>();
+    }
+    private void Update()
+    {
+        //if (!canDoor)
+        //{
+            
+        //    time += Time.deltaTime;
+        //    if (time > 1)
+        //    {
+        //        canDoor = true;
+        //    }
+        //}
+        //if (canDoor)
+        //{
+        //    time = 0;
+        //}
     }
     public void FirstAnswer()
     {
@@ -88,5 +130,59 @@ public class InfoStorage : MonoBehaviour
                 break;
             }
         }
+    }
+    public void OtherDoor() 
+    {
+        if (canDoor == true)
+        {
+            canDoor = false;
+            foreach (DoorScript door in stairs)
+            {
+                if (door.doorID == DoorID && currentDoor.name != door.gameObject.name)
+                {
+                    print (currentDoor.name);
+                    print(door.gameObject.name);
+                    player.transform.position = door.transform.position;
+                    
+                }
+            }
+            
+            PlayMusic("Door");
+
+            print("Jumped!");
+            
+        }
+    }
+
+    public void PlayMusic(string song)
+    {
+        if (song == "Queen")
+        {
+            musicPlayer.clip = allMusic.QueenSound;
+            musicPlayer.Play();
+        }
+        if (song == "Door")
+        {
+            musicPlayer.clip = allMusic.DoorSound;
+            musicPlayer.Play();
+        }
+        if (song == "Talk")
+        {
+            musicPlayer.clip = allMusic.TypeSound;
+            musicPlayer.Play();
+        }
+        if (song == "Screech")
+        {
+            musicPlayer.clip = allMusic.ScreechSound;
+            musicPlayer.Play();
+        }
+        if (song == null)
+        {
+            Debug.LogWarning("No audio selected!");
+        }
+    }
+    public void StopMusic()
+    {
+        musicPlayer.Stop();
     }
 }
