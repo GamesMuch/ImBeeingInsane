@@ -895,6 +895,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 188841719489665001, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_text
+      value: Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 188841719489665001, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_fontSize
+      value: 26.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 188841719489665001, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 00c90d164dfdb4861bf1370430420a6f, type: 2}
+    - target: {fileID: 188841719489665001, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 26.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 188841719489665001, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5528279756914181785, guid: 00c90d164dfdb4861bf1370430420a6f, type: 2}
+    - target: {fileID: 188841719489665001, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1350447853207345477, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
       propertyPath: m_Name
       value: Restart
@@ -1066,6 +1090,18 @@ PrefabInstance:
     - target: {fileID: 7334030360879223411, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
       propertyPath: m_Name
       value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484162641582563967, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 00c90d164dfdb4861bf1370430420a6f, type: 2}
+    - target: {fileID: 7484162641582563967, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5528279756914181785, guid: 00c90d164dfdb4861bf1370430420a6f, type: 2}
+    - target: {fileID: 7484162641582563967, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7925372710335387495, guid: b90c55a43ff6a0147850fe8f2fa25e0f, type: 3}
       propertyPath: m_SizeDelta.y
