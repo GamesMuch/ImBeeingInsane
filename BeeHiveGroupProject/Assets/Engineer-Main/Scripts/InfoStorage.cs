@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InfoStorage : MonoBehaviour
@@ -12,13 +13,6 @@ public class InfoStorage : MonoBehaviour
     {
         public Sprite MouthOpen;
         public Sprite MouthClose;
-    }
-    [System.Serializable]
-    public struct allLevels
-    {
-        public SceneAsset Scene1;
-        public SceneAsset Scene2;
-        public SceneAsset Scene3;
     }
 
     [System.Serializable]
@@ -32,10 +26,19 @@ public class InfoStorage : MonoBehaviour
     public Music allMusic;
 
     AudioSource musicPlayer;
-    public allLevels Scenes;
+    
 
     public PlayerAvatar playerAvatar;
 
+    [System.Serializable]
+    public struct Scene{
+        public SceneAsset Home;
+        public SceneAsset Main;
+        public SceneAsset Fail;
+        public SceneAsset Win;
+        public SceneAsset Fight;
+    }
+    public Scene scenes;
 
    
 
@@ -47,27 +50,28 @@ public class InfoStorage : MonoBehaviour
     public GameObject player;
     
 
-    public Transform nullSpawn;
+    Transform nullSpawn;
 
     public GameObject cam;
 
     public GameObject blinkItem;
 
-    public List<DoorScript> doors = new();
+    List<DoorScript> doors = new();
 
-    public List<DialogueBox> dialogueBoxes = new();
+    List<DialogueBox> dialogueBoxes = new();
 
     
 
     public bool InDialogue;
 
     float time;
-    public bool canDoor;
+    bool canDoor;
     float doorDist;
 
     public bool PollenAquired;
     public bool GotScreech;
     public bool GotHornet;
+    public bool KnowsHornet;
 
 
 
@@ -88,19 +92,7 @@ public class InfoStorage : MonoBehaviour
     }
     void Start()
     {
-
-        DoorScript[] temp = FindObjectsByType<DoorScript>(FindObjectsSortMode.None);
-        foreach (DoorScript obj in temp)
-        {
-            if (!doors.Contains(obj))
-            {
-                doors.Add(obj);
-            }
-        }
-
-        blinkItem.SetActive(true);
-        blinkItem.SetActive(false);
-        musicPlayer = GetComponent<AudioSource>();
+        GetVariables();
     }
     private void Update()
     {
@@ -195,5 +187,47 @@ public class InfoStorage : MonoBehaviour
     public void StopMusic()
     {
         musicPlayer.Stop();
+    }
+
+    public void HardReset()
+    {
+        PollenAquired = false;
+        GotScreech = false;
+        GotHornet = false;
+        KnowsHornet = false;
+    }
+    public void SoftReset()
+    {
+        PollenAquired = false;
+        GotScreech = false;
+        GotHornet = false;
+    }
+    public void GetVariables()
+    {
+        DoorScript[] temp = FindObjectsByType<DoorScript>(FindObjectsSortMode.None);
+        foreach (DoorScript obj in temp)
+        {
+            if (!doors.Contains(obj))
+            {
+                doors.Add(obj);
+            }
+        }
+        DialogueBox[] temp2 = FindObjectsByType<DialogueBox>(FindObjectsSortMode.None);
+        foreach (DialogueBox obj in temp2)
+        {
+            if (!dialogueBoxes.Contains(obj))
+            {
+                dialogueBoxes.Add(obj);
+            }
+        }
+        if (blinkItem != null)
+        {
+            blinkItem.SetActive(true);
+            blinkItem.SetActive(false);
+        }
+        musicPlayer = GetComponent<AudioSource>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        blinkItem = GameObject.Find("JUSTBLINKS");
     }
 }

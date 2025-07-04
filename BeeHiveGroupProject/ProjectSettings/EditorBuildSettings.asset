@@ -20,6 +20,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Engineer Main/Stair3.unity
     guid: 6f40f93aa6f4faa459a312ed917b7662
+  - enabled: 1
+    path: Assets/Engineer-Main/SCenes/Lose.unity
+    guid: 098c556bddfdce8498a750e3d05f412f
+  - enabled: 1
+    path: Assets/Engineer-Main/SCenes/Home.unity
+    guid: 294847be6e0c77c41ab1295e2cac6bd1
+  - enabled: 1
+    path: Assets/Engineer-Main/SCenes/Win.unity
+    guid: a90af43b81ffaa544b3ceca06add05db
+  - enabled: 1
+    path: Assets/Scenes/GreyBox.unity
+    guid: 13bbf9ea3ae5b437f813c818c63797d7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
