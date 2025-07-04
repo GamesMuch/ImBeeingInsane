@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class OnPress : MonoBehaviour
 {
-    public InteractScript parentInteraction;
+    InteractScript parentInteraction;
 
     RaycastHit hit;
     Ray mouseRay;
@@ -15,11 +15,15 @@ public class OnPress : MonoBehaviour
         {
             MousePress();
         }
-        
+
+    }
+    private void Start()
+    {
+        parentInteraction = GetComponent<InteractScript>();
     }
     void MousePress()
     {
-        
+
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out hit))
         {

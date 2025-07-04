@@ -1,10 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class InfoStorage : MonoBehaviour
 {
@@ -26,29 +21,30 @@ public class InfoStorage : MonoBehaviour
     public Music allMusic;
 
     AudioSource musicPlayer;
-    
+
 
     public PlayerAvatar playerAvatar;
 
     [System.Serializable]
-    public struct Scene{
-        public SceneAsset Home;
-        public SceneAsset Main;
-        public SceneAsset Fail;
-        public SceneAsset Win;
-        public SceneAsset Fight;
+    public struct Scene
+    {
+        public string MainMenuName;
+        public string GameSceneName;
+        public string FailSceneName;
+        public string WinSceneName;
+        public string FightSceneName;
     }
     public Scene scenes;
 
-   
 
-   
+
+
 
     public string DoorID;
     public GameObject currentDoor;
 
     public GameObject player;
-    
+
 
     Transform nullSpawn;
 
@@ -60,7 +56,7 @@ public class InfoStorage : MonoBehaviour
 
     List<DialogueBox> dialogueBoxes = new();
 
-    
+
 
     public bool InDialogue;
 
@@ -134,7 +130,7 @@ public class InfoStorage : MonoBehaviour
             }
         }
     }
-    public void OtherDoor() 
+    public void OtherDoor()
     {
         if (canDoor == true)
         {
@@ -143,17 +139,17 @@ public class InfoStorage : MonoBehaviour
             {
                 if (door.doorID == DoorID && currentDoor.name != door.gameObject.name)
                 {
-                    print (currentDoor.name);
+                    print(currentDoor.name);
                     print(door.gameObject.name);
                     door.MovePlayerHere();
                     break;
                 }
             }
-            
+
             PlayMusic("Door");
 
-            
-            
+
+
         }
     }
 

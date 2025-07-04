@@ -556,28 +556,28 @@ public class DialogueBox : MonoBehaviour
         if (IsScreeched == false)
         {
             P("PTSBEE! What’s wrong?");
-            S("Coming... *buzz*");
+            N("Coming... *buzz*");
             P("What’s coming?");
-            S("*buzz* They’re coming...! *buzz*");
+            N("*buzz* They’re coming...! *buzz*");
             P("He’s too traumatized. I can’t get through to him.");
-            S("Find…… BUZZBEE");
+            N("Find…… BUZZBEE");
             P("Okay, okay. I’ll find him. Just, stay here okay?");
             End();
         }
         if (IsScreeched == true)
         {
             P("PTSBEE, are you okay?");
-            S("SKIBEE! I- Thank you...");
+            N("SKIBEE! I- Thank you...");
             P("What got you stinged?");
-            S("Oh, SKIBEE it’s horrible. Just horrible. The worst thing ever. I can’t even Beelieve it. I-");
+            N("Oh, SKIBEE it’s horrible. Just horrible. The worst thing ever. I can’t even Beelieve it. I-");
             P("Focus, what happened?");
-            S("The hornets. It’s the hornets. A hundred, no no, a thousands! A whole army is on their way!");
+            N("The hornets. It’s the hornets. A hundred, no no, a thousands! A whole army is on their way!");
             P("To where?? The hive?");
-            S("Yes. Oh my Bee. We’re all gonna die!");
+            N("Yes. Oh my Bee. We’re all gonna die!");
             P("Buzz up. We’re not, okay? We just gotta warn the QUEEN.");
-            S("How? We’re just some lowly worker bees. We’re the lowest rank in the hive! They’re not gonna listen to you.");
+            N("How? We’re just some lowly worker bees. We’re the lowest rank in the hive! They’re not gonna listen to you.");
             P("If we prove to the QUEEN there is a threat, she’ll have to believe us.");
-            S("But how would we-");
+            N("But how would we-");
 
             //Play hornet sound?
 

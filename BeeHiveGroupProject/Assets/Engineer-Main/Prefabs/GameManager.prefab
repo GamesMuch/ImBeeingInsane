@@ -71,11 +71,11 @@ MonoBehaviour:
     MouthOpen: {fileID: 21300000, guid: ef3f18e67c31089408f412d367aa0fb1, type: 3}
     MouthClose: {fileID: 21300000, guid: a59bcf8fc72a1c74498b29800a0710cf, type: 3}
   scenes:
-    Home: {fileID: 102900000, guid: 294847be6e0c77c41ab1295e2cac6bd1, type: 3}
-    Main: {fileID: 102900000, guid: 13bbf9ea3ae5b437f813c818c63797d7, type: 3}
-    Fail: {fileID: 102900000, guid: 098c556bddfdce8498a750e3d05f412f, type: 3}
-    Win: {fileID: 102900000, guid: a90af43b81ffaa544b3ceca06add05db, type: 3}
-    Fight: {fileID: 0}
+    MainMenuName: Home
+    GameSceneName: GreyBox
+    FailSceneName: Lose
+    WinSceneName: Win
+    FightSceneName: 
   DoorID: 
   currentDoor: {fileID: 0}
   player: {fileID: 0}
@@ -85,6 +85,7 @@ MonoBehaviour:
   PollenAquired: 0
   GotScreech: 0
   GotHornet: 0
+  KnowsHornet: 0
 --- !u!81 &3508871171691110567
 AudioListener:
   m_ObjectHideFlags: 0

@@ -18,22 +18,22 @@ public class SceneSwapper : MonoBehaviour
     }
     public void StartScene()
     {
-        SceneManager.LoadScene(InfoStorage.Instance.scenes.Home.name);
+        SceneManager.LoadScene(InfoStorage.Instance.scenes.MainMenuName);
     }
     public void FailScene()
     {
-        SceneManager.LoadScene(InfoStorage.Instance.scenes.Fail.name);
+        SceneManager.LoadScene(InfoStorage.Instance.scenes.FailSceneName);
     }
     public void WinScene()
     {
-        SceneManager.LoadScene(InfoStorage.Instance.scenes.Win.name);
+        SceneManager.LoadScene(InfoStorage.Instance.scenes.WinSceneName);
     }
     public void MainScene()
     {
-        SceneManager.LoadScene(InfoStorage.Instance.scenes.Main.name);
+        SceneManager.LoadScene(InfoStorage.Instance.scenes.GameSceneName);
     }
     public void FightScene()
     {
-        SceneManager.LoadScene(InfoStorage.Instance.scenes.Fight.name);
+        SceneManager.LoadScene(InfoStorage.Instance.scenes.FightSceneName);
     }
 }

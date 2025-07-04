@@ -1,9 +1,4 @@
-using System.Collections;
-using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 public class DoorScript : MonoBehaviour
@@ -12,7 +7,7 @@ public class DoorScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        print("Collided with " +  other.gameObject.name);
+        print("Collided with " + other.gameObject.name);
         InfoStorage.Instance.currentDoor = gameObject;
         InfoStorage.Instance.DoorID = doorID;
         InfoStorage.Instance.OtherDoor();
